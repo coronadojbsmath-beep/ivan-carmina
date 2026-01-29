@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ivan ❤ Nami</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* SLIDESHOW */
+    .slideshow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100vh;
+      z-index: -1;
+    }
+    .slide {
+      position: absolute;
+      width: 100%; height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: fade 30s infinite;
+    }
+    .slide:nth-child(1) { animation-delay: 0s; }
+    .slide:nth-child(2) { animation-delay: 10s; }
+    .slide:nth-child(3) { animation-delay: 20s; }
+
+    @keyframes fade {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      30% { opacity: 1; }
+      40% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* OVERLAY */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .content {
+      max-width: 800px;
+      animation: rise 2s ease forwards;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #ffd700;
+      letter-spacing: 2px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .signature {
+      margin-top: 40px;
+      font-style: italic;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .hint {
+      position: fixed;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    audio { display: none; }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND SLIDESHOW -->
+  <div class="slideshow">
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac')"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e')"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1517841905240-472988babdf9')"></div>
+  </div>
+
+  <!-- MUSIC -->
+  <audio autoplay loop>
+    <source src="Kanibaklismo-II.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- CONTENT -->
+  <div class="overlay">
+    <div class="content">
+      <h1>Ivan ❤ Nami</h1>
+      <p>
+        After <strong>2,429 days</strong>, we're finally seeing each other<br>
+        and moving our hearts closer together.<br><br>
+        I'll see you soon, <strong>Nami</strong>.
+      </p>
+      <div class="signature">– Ivan Manalo</div>
+    </div>
+  </div>
+
+  <div class="hint">Scan via QR • One Page Love Story</div>
+
+</body>
+</html>
