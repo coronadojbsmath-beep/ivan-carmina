@@ -1,132 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ivan ❤ Nami</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #000;
-      color: #fff;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ivan ❤ Carmina</title>
 
-    /* SLIDESHOW */
-    .slideshow {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100vh;
-      z-index: -1;
-    }
-    .slide {
-      position: absolute;
-      width: 100%; height: 100%;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      animation: fade 30s infinite;
-    }
-    .slide:nth-child(1) { animation-delay: 0s; }
-    .slide:nth-child(2) { animation-delay: 10s; }
-    .slide:nth-child(3) { animation-delay: 20s; }
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
 
-    @keyframes fade {
-      0% { opacity: 0; }
-      10% { opacity: 1; }
-      30% { opacity: 1; }
-      40% { opacity: 0; }
-      100% { opacity: 0; }
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    /* OVERLAY */
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-    }
+body{
+  background:black;
+  overflow:hidden;
+  font-family:'Playfair Display', serif;
+}
 
-    .content {
-      max-width: 800px;
-      animation: rise 2s ease forwards;
-    }
+/* ===== SLIDESHOW ===== */
+.slideshow{
+  position:fixed;
+  inset:0;
+  z-index:-5;
+}
+.slide{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  animation:fade 24s infinite;
+  filter:brightness(0.55) saturate(1.1);
+}
+.slide:nth-child(1){animation-delay:0s;}
+.slide:nth-child(2){animation-delay:8s;}
+.slide:nth-child(3){animation-delay:16s;}
 
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+@keyframes fade{
+  0%{opacity:0;}
+  10%{opacity:1;}
+  35%{opacity:1;}
+  45%{opacity:0;}
+  100%{opacity:0;}
+}
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: #ffd700;
-      letter-spacing: 2px;
-    }
+/* ===== VIGNETTE ===== */
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle, rgba(0,0,0,0.2) 30%, rgba(0,0,0,0.9) 100%);
+  pointer-events:none;
+  z-index:-1;
+}
 
-    p {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      margin-bottom: 30px;
-    }
+/* ===== GOLD PARTICLES (canvas) ===== */
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  pointer-events:none;
+}
 
-    .signature {
-      margin-top: 40px;
-      font-style: italic;
-      font-size: 1rem;
-      opacity: 0.9;
-    }
+/* ===== ENVELOPE ===== */
+.envelope-wrap{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:5;
+}
+.envelope{
+  width:320px;
+  height:200px;
+  background:#fef6e4;
+  border-radius:12px;
+  position:relative;
+  cursor:pointer;
+  box-shadow:0 25px 60px rgba(0,0,0,.5);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.04);}
+}
+.envelope::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,0 100%);
+  background:#f4e8d8;
+  border-radius:12px;
+}
+.click-text{
+  position:absolute;
+  bottom:18px;
+  width:100%;
+  text-align:center;
+  font-size:1.1rem;
+  letter-spacing:2px;
+  color:#a67c52;
+  font-weight:600;
+}
 
-    .hint {
-      position: fixed;
-      bottom: 15px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
+/* ===== PAPER MESSAGE ===== */
+.overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  z-index:3;
+}
+.paper{
+  background:#fff9f0;
+  padding:60px 55px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 30px 90px rgba(0,0,0,.6);
+  animation:rise 2s ease forwards;
+}
+@keyframes rise{
+  from{opacity:0;transform:translateY(40px);}
+  to{opacity:1;transform:translateY(0);}
+}
 
-    audio { display: none; }
+/* ===== TEXT ===== */
+h1{
+  font-family:'Great Vibes', cursive;
+  font-size:5rem;
+  color:#d4af7f;
+  text-shadow:0 0 25px rgba(212,175,127,.8);
+}
+.heart{
+  color:#ffd070;
+  animation:beat 1.2s infinite;
+}
+@keyframes beat{
+  0%{transform:scale(1);}
+  30%{transform:scale(1.35);}
+  60%{transform:scale(1);}
+}
+p{
+  margin-top:25px;
+  font-size:1.3rem;
+  line-height:1.9;
+  color:#5c4938;
+}
+.signature{
+  margin-top:40px;
+  font-size:1.6rem;
+  font-weight:700;
+  color:#3b2c22;
+}
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      p { font-size: 1rem; }
-    }
-  </style>
+/* ===== AUDIO ===== */
+audio{display:none;}
+
+@media(max-width:600px){
+  h1{font-size:3.3rem;}
+  .paper{padding:40px 30px;}
+  p{font-size:1.1rem;}
+}
+</style>
 </head>
 <body>
 
-  <!-- BACKGROUND SLIDESHOW -->
-  <div class="slideshow">
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac')"></div>
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e')"></div>
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1517841905240-472988babdf9')"></div>
+<!-- SLIDESHOW -->
+<div class="slideshow">
+  <div class="slide" style="background-image:url('slide1.jpg')"></div>
+  <div class="slide" style="background-image:url('slide2.jpg')"></div>
+  <div class="slide" style="background-image:url('slide3.jpg')"></div>
+</div>
+
+<!-- GOLD PARTICLES CANVAS -->
+<canvas id="particles"></canvas>
+
+<!-- ENVELOPE -->
+<div class="envelope-wrap" id="envelope">
+  <div class="envelope">
+    <div class="click-text">CLICK HERE</div>
   </div>
+</div>
 
-  <!-- MUSIC -->
-  <audio autoplay loop>
-    <source src="Kanibaklismo-II.mp3" type="audio/mpeg" />
-  </audio>
-
-  <!-- CONTENT -->
-  <div class="overlay">
-    <div class="content">
-      <h1>Ivan ❤ Nami</h1>
-      <p>
-        After <strong>2,429 days</strong>, we're finally seeing each other<br>
-        and moving our hearts closer together.<br><br>
-        I'll see you soon, <strong>Nami</strong>.
-      </p>
-      <div class="signature">– Ivan Manalo</div>
-    </div>
+<!-- PAPER MESSAGE -->
+<div class="overlay" id="message">
+  <div class="paper">
+    <h1>Ivan <span class="heart">❤</span> Carmina</h1>
+    <p>
+      After <strong>2,429 days</strong>,<br>
+      our hearts finally meet again.<br>
+      I’ll see you soon, <strong>Nami</strong>.
+    </p>
+    <div class="signature">IVAN MANALO</div>
   </div>
+</div>
 
-  <div class="hint">Scan via QR • One Page Love Story</div>
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="Kanibaklismo-II.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// ===== GOLD PARTICLES =====
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',resize);
+
+for(let i=0;i<120;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2+0.5,
+    s:Math.random()*0.5+0.2
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='rgba(212,175,127,0.8)';
+  ctx.beginPath();
+  particles.forEach(p=>{
+    ctx.moveTo(p.x,p.y);
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    p.y-=p.s;
+    if(p.y<0){p.y=canvas.height;p.x=Math.random()*canvas.width;}
+  });
+  ctx.fill();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ===== ENVELOPE CLICK =====
+const env=document.getElementById('envelope');
+const msg=document.getElementById('message');
+const music=document.getElementById('bgMusic');
+
+env.addEventListener('click',()=>{
+  env.style.opacity=0;
+  env.style.pointerEvents='none';
+  msg.style.opacity=1;
+  msg.style.pointerEvents='auto';
+  music.play();
+});
+</script>
 
 </body>
 </html>
